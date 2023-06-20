@@ -112,7 +112,7 @@ for(int i=0;i<=n;i++)
 
 这启发我们通过这样一条路径计算多项式乘法
 
-<img src="C:\Users\27670\Project\Slides\work\FFT\FFT\image-20230617112206043.png" alt="image-20230617112206043" style="zoom:50%;" />
+<img src="https://img1.imgtp.com/2023/06/20/3EzrGxnW.png" alt="image-20230617112206043" style="zoom:50%;" />
 
 # 系数表示法转点值表示法
 
@@ -239,3 +239,40 @@ $$
 所以$B(W_n^{-k})=na_k$，即$A(x)$的第$k$项系数是由$B(W_n^{-k})/n$得到，而$B(W_n^{-k})$相当于把$A(x)$的长度为$n$的点值表达式当作一个系数表达式，代入$\{W_n^0,W_n^{-1},...,W_n^{-(n-1)}\}$这$n$个采样点得到的**“点值表达式”**
 
 至此，多项式乘法的快速计算已经全部打通
+
+# 代码实现
+
+## 简单的分治
+
+```c++
+Complex W(int n,int m){
+	return (Complex){cos(2*PI*m/n),sin(2*PI*m/n)};
+}
+vector<Complex> partition(vector<int> poly){
+	int n=poly.size(); 
+	if(n==1){
+		return vector<Complex>({
+			(Complex){poly[0],0}
+		});
+	}
+	vector<int> even;
+	vector<int> odd;
+	for(int i=0;i<n;i++){
+		if(i%2==0)even.push_back(poly[i]);
+		else odd.push_back(poly[i]);
+	}
+	vector<Complex> even_y=partition(even);
+	vector<Complex> odd_y=partition(odd);
+	vector<Complex> y;
+	for(int k=0;k<n;k++){
+		Complex ans=even_y[k%(n/2)]+W(n,k)*odd_y[k%(n/2)];
+		y.push_back(ans);
+	}
+	return y;
+}
+```
+
+上述分治的空间复杂度高，常数过大
+
+## 蝶形算法
+

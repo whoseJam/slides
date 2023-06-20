@@ -1,0 +1,25 @@
+.ref {
+    font-size: 15px;
+}
+
+p {
+    text-align: left;
+    font-size: 20px;
+}
+
+section > h2,
+section > h3,
+section > h4,
+section > h5 {
+    text-align: left;
+    font-size: 25px;
+}
+
+ul {
+    text-align: left;
+}
+
+li {
+    font-size: 20px;
+    margin: 0px auto;
+}

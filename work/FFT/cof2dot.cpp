@@ -40,7 +40,7 @@ Complex y1[N];
 Complex y2[N];
 
 Complex W(int n,int m){
-	return (Complex){cos(2*PI*n/m),sin(2*PI*n/m)};
+	return (Complex){cos(2*PI*m/n),sin(2*PI*m/n)};
 }
 
 void N2(){
@@ -49,27 +49,34 @@ void N2(){
 		Complex wk=(Complex){1,0};
 		Complex ans=(Complex){0,0};
 		for(int j=0;j<n;j++){
-			ans=ans+(wk*a[i]);
+			ans=ans+(wk*a[j]);
+			wk=wk*w;
 		}
 		y1[i]=ans;
 	}
 }
 
-vector<int> partition(vector<int> poly){
-	if(poly.size()==1){
-		return vector<int>({poly[0]});
+vector<Complex> partition(vector<int> poly){
+	int n=poly.size(); 
+	if(n==1){
+		return vector<Complex>({
+			(Complex){poly[0],0}
+		});
 	}
 	vector<int> even;
 	vector<int> odd;
-	for(int i=0;i<poly.size();i++){
+	for(int i=0;i<n;i++){
 		if(i%2==0)even.push_back(poly[i]);
 		else odd.push_back(poly[i]);
 	}
-	vector<int> even_y=partition(even);
-	vector<int> odd_y=partition(odd);
-	for(int k=0;k<poly.size();i++){
-		
+	vector<Complex> even_y=partition(even);
+	vector<Complex> odd_y=partition(odd);
+	vector<Complex> y;
+	for(int k=0;k<n;k++){
+		Complex ans=even_y[k%(n/2)]+W(n,k)*odd_y[k%(n/2)];
+		y.push_back(ans);
 	}
+	return y;
 }
 
 int main(){
@@ -80,7 +87,15 @@ int main(){
 		poly.push_back(a[i]);
 	}
 	N2();
-	partition(poly);
+	auto ans=partition(poly);
+	for(int i=0;i<ans.size();i++)
+		y2[i]=ans[i];
+	
+	for(int i=0;i<n;i++){
+		y1[i].output();
+		y2[i].output();
+		cout<<"\n";
+	}
 	
 	return 0;
 }
