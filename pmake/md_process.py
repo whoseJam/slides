@@ -7,7 +7,6 @@ author: {}
 title: {}
 header-includes: 
     <link rel="stylesheet" href="user/user.css">
-    <script src="reveal/plugin/math/math.js"></script>
 ---
 """.format(author, title))
 

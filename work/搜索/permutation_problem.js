@@ -51,7 +51,9 @@ scatter.width(600);
 scatter.height(300);
 scatter.cx(600);
 scatter.cy(200);
+scatter.start_group_add();
 dfs(0);
+pause_append(() => { scatter.stop_group_add(true); });
 
 p[0] = 2;
 vis[2] = 1;

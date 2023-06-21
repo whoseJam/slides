@@ -244,7 +244,7 @@ $$
 
 ## 简单的分治
 
-```c++
+```
 Complex W(int n,int m){
 	return (Complex){cos(2*PI*m/n),sin(2*PI*m/n)};
 }

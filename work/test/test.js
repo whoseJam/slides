@@ -1,11 +1,13 @@
 import { Array } from "#lib/array.js";
 import { Grid } from "#lib/grid.js";
 import { Message } from "#lib/message.js";
+import { Scatter } from "#lib/scatter.js";
 import { Stack } from "#lib/stack.js";
 import { pause } from "#lib/utility.js";
 import { SVG } from "@svgdotjs/svg.js";
 import { Geometry } from "#lib/geometry.js";
 import { Arrow } from "#lib/arrow.js";
+import { Tree } from "#lib/tree.js";
 
 let draw = SVG().addTo("body").size(1200, 600);
 
@@ -130,7 +132,37 @@ function test_message() {
     let l2 = new Arrow(draw); l2.start(Bx.right()); l2.end(ts(dBx.left())); l2.arrow_e(true);
 }
 
+function test_scatter() {
+    let scatter = new Scatter(draw);
+    scatter.width(600);
+    scatter.height(300);
+    scatter.cx(600);
+    scatter.cy(200);
+    scatter.start_group_add();
+    for (let i = 0; i <= 10; i++) {
+        let msg = new Message(draw);
+        msg.message("Hell World");
+        scatter.add(msg, true);
+    }
+    scatter.stop_group_add(true);
+}
+
+function test_tree() {
+    let tree = new Tree(draw);
+    tree.link("1", "2");
+    tree.link("1", "3");
+    tree.link("3", "4");
+    tree.link("3", "5");
+    tree.radius(24);
+    tree.line_length(60);
+    tree.cx(600);
+    tree.cy(300);
+    tree.root("1");
+}
+
 // test_array();
 // test_stack();
-test_geometry();
+// test_geometry();
 // test_message();
+// test_scatter();
+test_tree();

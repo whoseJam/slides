@@ -3,6 +3,7 @@ import hashlib
 
 def read_database(path_to_database: str):
     record = {}
+    return record
     try:
         file = open(path_to_database, "r")
         line = file.readline()
@@ -64,7 +65,7 @@ def build_modules(
         output_path = path_to_output
         output_file = "{}.js".format(module)
 
-        current_md5 = encode_by_md5(open(path_to_entry).read())
+        current_md5 = encode_by_md5(open(path_to_entry, encoding="utf-8").read())
         if path_to_entry in record.keys():
             last_md5 = record[path_to_entry]
             if last_md5 == current_md5:
