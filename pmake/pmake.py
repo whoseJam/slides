@@ -16,8 +16,9 @@ if __name__=="__main__":
 
     output_md = open(path_to_output_md, "w", encoding="utf-8")
     current_md = open(path_to_current_md, "r", encoding="utf-8")
-    title = sys.argv[2]
-    author = sys.argv[3]
+    title = path_to_current_md.split("/")[-1]
+    title = title.split(".")[0]
+    author = sys.argv[2]
 
     print("title : {}".format(title))
     print("author : {}".format(author))

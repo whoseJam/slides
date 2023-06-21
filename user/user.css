@@ -2,6 +2,10 @@
     font-size: 15px;
 }
 
+.sep {
+    height: 20px;
+}
+
 p {
     text-align: left;
     font-size: 20px;

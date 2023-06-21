@@ -1,5 +1,6 @@
 import { Array } from "#lib/array.js";
 import { Grid } from "#lib/grid.js";
+import { Color } from "#lib/color.js";
 import { Message } from "#lib/message.js";
 import { Scatter } from "#lib/scatter.js";
 import { Stack } from "#lib/stack.js";
@@ -61,7 +62,7 @@ function test_grid() {
     let grid = new Grid(draw);
     grid.n(5);
     grid.m(5);
-    pause(() => { grid.green(1, 1, true); })
+    pause(() => { grid.color(1, 1, Color().green_, true); })
 }
 
 function test_stack() {
@@ -165,4 +166,5 @@ function test_tree() {
 // test_geometry();
 // test_message();
 // test_scatter();
-test_tree();
+// test_tree();
+test_grid();
