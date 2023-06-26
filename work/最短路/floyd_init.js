@@ -1,12 +1,12 @@
-import { Grid } from "#lib/grid.js";
-import { Color } from "#lib/color.js";
-import { SVG } from "@svgdotjs/svg.js";
-import { Message } from "#lib/message.js";
-import * as H from "#lib/utility.js";
+import { Grid } from "#lib/grid";
+import { Color } from "#lib/color";
+import { Text } from "#lib/text";
+import { Util } from "#lib/utility";
+import * as d3 from "d3";
 
-let draw = SVG().addTo("body").size(1200, 600);
-let pause = H.pause;
-let Loc = H.Locator;
+let svg = SVG().addTo("body").size(1200, 600);
+let pause = Util.pause;
+let Loc = Util.Locator;
 
 const edge = [
     [1, 5, 5],
