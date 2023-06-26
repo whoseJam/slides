@@ -1,12 +1,11 @@
-import { Grid } from "#lib/grid.js";
-import { Color } from "#lib/color.js";
-import { SVG } from "@svgdotjs/svg.js";
-import { Message } from "#lib/message.js";
-import * as H from "#lib/utility.js";
+import { Grid } from "#lib/grid";
+import { Color } from "#lib/color";
+import { Text } from "#lib/text";
+import { Util } from "#lib/utility";
 
-let draw = SVG().addTo("body").size(1200, 600);
-let pause = H.pause;
-let Loc = H.Locator;
+let svg = Util.svg();
+let pause = Util.pause;
+let Loc = Util.Locator;
 
 const edge = [
     [1, 5, 5],
@@ -19,31 +18,28 @@ const edge = [
 ];
 
 let dist = new Array(6);
-for(let i = 0;i < dist.length; i++) {
+for(let i = 0;i < dist.length; i++)
     dist[i] = new Array(6).fill(0);
-}
 console.log(dist);
 
 edge.forEach((e) => {
-    console.log(e);
     dist[e[0]][e[1]] = e[2];
     dist[e[1]][e[0]] = e[2];
 });
 
 let k = 2;
 let row = 400;
-let board = new Message(draw);
-board.message(" ");
+let board = new Text(svg, " ");
 board.cx(600);
 board.cy(260);
 
-let grid_last = new Grid(draw);
+let grid_last = new Grid(svg);
 grid_last.n(5);
 grid_last.m(5);
 grid_last.cx(400);
 grid_last.cy(row);
 
-let grid_cur = new Grid(draw);
+let grid_cur = new Grid(svg);
 grid_cur.n(5);
 grid_cur.m(5);
 grid_cur.cx(800);
@@ -52,7 +48,7 @@ grid_cur.cy(row);
 for (let i = 0; i < 5; i++) {
     for (let j = 0; j < 5; j++) {
         pause(() => {
-            board.message(`now[${i+1}][${j+1}]=min(last[${i+1}][${k}]+last[${k}][${j+1}])`, true);
+            board.text(`now[${i+1}][${j+1}]=min(last[${i+1}][${k}]+last[${k}][${j+1}])`, true);
             board.cx(600, true);
             board.cy(260, true);
             grid_cur.color(i, j, Color().green_, true);

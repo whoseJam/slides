@@ -4,9 +4,9 @@ import { Text } from "#lib/text";
 import { Util } from "#lib/utility";
 import * as d3 from "d3";
 
-let svg = SVG().addTo("body").size(1200, 600);
+let svg = Util.svg();
 let pause = Util.pause;
-let Loc = Util.Locator;
+let Loc = Util.locator;
 
 const edge = [
     [1, 5, 5],
@@ -19,9 +19,8 @@ const edge = [
 ];
 
 let dist = new Array(6);
-for(let i = 0;i < dist.length; i++) {
+for(let i = 0;i < dist.length; i++)
     dist[i] = new Array(6).fill(0);
-}
 console.log(dist);
 
 edge.forEach((e) => {
@@ -30,7 +29,7 @@ edge.forEach((e) => {
     dist[e[1]][e[0]] = e[2];
 });
 
-let grid = new Grid(draw);
+let grid = new Grid(svg);
 let loc = Loc("floyd_init");
 let l = loc.height() / 5;
 grid.element_width(l);
@@ -42,10 +41,12 @@ grid.y(loc.y());
 
 for (let i = 0; i < 5; i++) {
     for (let j = 0; j < 5; j++) {
-        let msg = new Message(draw);
-        if (i === j) msg.message("0");
-        else if (dist[i+1][j+1] === 0) msg.message("inf");
-        else msg.message(dist[i+1][j+1].toString());
-        grid.value(i, j, msg);
+        let fn = (svg) => {
+            let txt = new Text(svg);
+            if (i === j) txt.text("0");
+            else if (dist[i+1][j+1] === 0) txt.text("inf");
+            else txt.text(dist[i+1][j+1].toString());
+        }
+        grid.value(i, j, fn);
     }
 }
