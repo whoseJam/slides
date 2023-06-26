@@ -54,7 +54,7 @@ def encode_by_md5(code: str):
     return m.hexdigest()
 
 def build_modules(
-        modules: str, 
+        modules: list, 
         working_directory: str, 
         path_to_database: str, 
         path_to_output: str):
@@ -78,3 +78,26 @@ def build_modules(
     
     write_database(path_to_database, record)
 
+def build_module(
+        module: str,
+        path_to_js: str,
+        path_to_database: str,
+        path_to_output: str):
+    record = read_database(path_to_database)
+    print("building module : {}".format(module))
+    path_to_entry = path_to_js
+    output_path = path_to_output
+    output_file = "{}.js".format(module)
+
+    current_md5 = encode_by_md5(open(path_to_entry, encoding="utf-8").read())
+    if path_to_entry in record.keys():
+        last_md5 = record[path_to_entry]
+        if last_md5 == current_md5:
+            print("module already been built, skip")
+            return
+    
+    npm_run(path_to_entry, output_path, output_file)
+    template_html(module, path_to_output)
+    record[path_to_entry] = current_md5
+
+    write_database(path_to_database, record)
