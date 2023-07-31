@@ -41,7 +41,7 @@ pause(() => {
 });
 pause(() => {
     tr.append_plain_data(
-        {"name": "SSS", "parent": "Azura", "value": () => { return new Text(svg, "HSJ"); }},
+        {"name": "RRR", "parent": "Azura", "value": () => { return new Text(svg, "HSJ"); }},
         Anitype.start);
 });
 pause(() => {

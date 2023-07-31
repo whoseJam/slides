@@ -47,12 +47,6 @@ let key_value_pair = [
     ["Zerind", "Zerind"]
 ];
 
-for (let i = 0; i < key_value_pair.length; i++) {
-    let new_msg = new Text(draw);
-    new_msg.text(key_value_pair[i][1]);
-    tree.new_node(key_value_pair[i][0], new_node);
-}
-
 tree.root("Arad");
 tree.link("Arad", "Sibiu");
 tree.link("Arad", "Timisoara");
@@ -69,10 +63,6 @@ tree.link("Zerind", "Oradea_");
 tree.radius(25);
 tree.cx(600);
 tree.cy(400);
-tree.opacity(0);
-pause(() => {
-    tree.opacity(1, true);
-})
 pause(() => {
     tree.color("Arad", Color.blue_pack, Anitype.start);
 });

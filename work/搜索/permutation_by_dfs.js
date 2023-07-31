@@ -1,15 +1,17 @@
-import { Message } from "#lib/message.js";
-import { Scatter } from "#lib/scatter.js";
-import { pause, pause_append } from "#lib/utility.js";
-import { Tree } from "#lib/tree.js";
-import { SVG } from "@svgdotjs/svg.js";
-import { Vertex } from "../../lib/vertex";
 
+import { Scatter } from "#lib/scatter.js";
+import { Util } from "#lib/utility.js";
+import { Tree } from "#lib/tree.js";
+import { Color } from "#lib/color";
+import { Anitype } from "#lib/i_animation";
+
+let pause = Util.pause;
+let pause_append = Util.pause_append;
 
 let n = 3;
 let p = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 let vis = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-let draw = SVG().addTo("body").size(1200, 600);
+let draw = Util.svg();
 let tree = new Tree(draw);
 
 function encode_status(p, length) {
@@ -24,16 +26,16 @@ function encode_status(p, length) {
 function dfs(dep) {
     if (dep == n) {
         let cur = encode_status(p, dep);
-        pause(() => { tree.green(cur, true); });
+        pause(() => { tree.color(cur, Color.green_pack, Anitype.start); });
         return;
     }
     let cur = encode_status(p, dep);
-    pause(() => { tree.blue(cur, true); });
+    pause(() => { tree.color(cur, Color.blue_pack, Anitype.start); });
     for (let i = 1; i <= n; i++) {
         if (vis[i] === 1) continue;
         p[dep] = i;
         let nxt = encode_status(p, dep + 1);
-        pause_append(() => { tree.grey(nxt, true); });
+        pause_append(() => { tree.color(nxt, Color.grey, Anitype.start); });
     }
     for (let i = 1; i <= n; i++) {
         if (vis[i] === 1) continue;
@@ -49,20 +51,20 @@ function dfs(dep) {
 function dfs2(dep, parent = null) {
     let cur = encode_status(p, dep);
     let e = null;
-    if (parent != null) e = tree.edge(parent, cur);
+    // if (parent != null) e = tree.edge(parent, cur);
     if (dep == n) {
         pause(() => { 
-            tree.blue(cur, true);
-            if (e != null) e.red(true);
+            tree.color(cur, Color.blue_pack, Anitype.start);
+            if (e != null) e.red(Anitype.start);
         });
         pause(() => {
             tree.grey(cur, true);
-            if (e != null) e.default_color(true);
+            if (e != null) e.default_color(Anitype.start);
         });
         return;
     }
     pause(() => { 
-        tree.blue(cur, true);
+        tree.color(cur, Color.blue_pack, Anitype.start);
         if (e != null) e.red(true);
     });
     for (let i = 1; i <= n; i++) {
@@ -73,18 +75,18 @@ function dfs2(dep, parent = null) {
         vis[i] = 0;
     }
     pause(() => {
-        tree.grey(cur, true);
-        if (e != null) e.default_color(true);
+        tree.color(cur, Color.grey_pack, Anitype.start);
+        if (e != null) e.default_color(Anitype.start);
     });
 }
 
-dfs(0);
-
 tree.root("[]");
 tree.radius(24);
-tree.line_length(60);
+tree.height(1200);
 tree.cx(600);
-tree.cy(300);
+tree.y(100);
 
-pause(() => { tree.default_color(undefined, true); });
+dfs(0);
+
+pause(() => { tree.color_all(Color.default_pack, Anitype.start); });
 dfs2(0);
