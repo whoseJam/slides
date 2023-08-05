@@ -3,7 +3,7 @@ import hashlib
 
 def read_database(path_to_database: str):
     record = {}
-    # return record
+    return record
     try:
         file = open(path_to_database, "r")
         line = file.readline()
@@ -42,7 +42,12 @@ def template_html(module: str, path_to_output: str):
 </head>
 <body>
     <script src="{}.js"></script>
-    <button onclick="window.continue()">下一条指令</button>
+    <script>
+        document.addEventListener('keydown', (e) => {{
+            if (e.key === 'n' || e.key === 'N')
+                window.continue();
+        }})
+    </script>
 </body>
 </html>
 """.format(module))

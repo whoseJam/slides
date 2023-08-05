@@ -35,3 +35,9 @@ const update = () => {
   setTimeout(update, 20);
 }
 setTimeout(update, 20);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "n") {
+    window.continue();
+  }
+});
