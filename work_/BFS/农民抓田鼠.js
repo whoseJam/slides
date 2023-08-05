@@ -27,7 +27,6 @@ let n = 20;
 let dis = create_1d(n);
 let vis = create_1d(n);
 let grid = new Grid(svg);
-// let floor = new Grid(svg);
 grid.n(2);
 grid.m(n);
 grid.element_width(50);
@@ -36,8 +35,6 @@ grid.value(0, start, new Text(svg, "Start"));
 grid.value(0, target, new Text(svg, "Target"));
 grid.x(1);
 grid.cy(300);
-// floor.x(grid.mx() + 2);
-// floor.y(grid.y());
 
 let queue = [];
 let head = 0;

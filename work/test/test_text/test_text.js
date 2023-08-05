@@ -1,8 +1,4 @@
-import { Text } from "#lib/text";
-import { Circle } from "#lib/circle";
-import { Util } from "#lib/utility";
-import { Anitype } from "#lib/i_animation";
-import { Color } from "#lib/color";
+import { Text, Circle, Util, Anitype, Color } from "#lib/slide";
 
 let svg = Util.svg();
 let pause = Util.pause;

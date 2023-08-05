@@ -9,6 +9,8 @@ import { Grid } from "#lib/grid";
 let pause = Util.pause;
 let pause_append = Util.pause_append;
 let svg = Util.svg();
+const S = Anitype.start;
+const A = Anitype.append;
 
 let grid = new Grid(svg);
 grid.n(4);
@@ -50,20 +52,29 @@ let pos = 0;
 let cnt = 0;
 
 function build() {
+    let pos_ = pos;
     pause(() => {
-        arr.color(pos, Color.green_pack);
+        if (pos_ >= 1)
+            arr.color(pos_-1, Color.default_pack, S);
+        arr.color(pos_, Color.green_pack, A);
     })
     if (Arr[pos] !== ".") {
+        let grab = ++cnt;
         pause(() => {
-            grid.value(1, cnt, new Text(svg, Arr[pos]));
-            let lch = build();
-            let rch = build();
-            grid.value(2, cnt, new Text(svg, String(lch)));
-            grid.value(3, cnt, new Text(svg, String(rch)));
+            grid.value(1, grab, new Text(svg, Arr[pos_]));
         });
-        cnt++;
-        return cnt;
+        pos++;
+        let lch = build();
+        pause(() => {
+            grid.value(2, grab, new Text(svg, String(lch)));
+        })
+        let rch = build();
+        pause(() => {
+            grid.value(3, grab, new Text(svg, String(rch)));
+        })
+        return grab;
     } else {
+        pos++;
         return ".";
     }
 }
