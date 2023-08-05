@@ -47,6 +47,8 @@ let key_value_pair = [
     ["Zerind", "Zerind"]
 ];
 
+tree.width(1000);
+
 tree.root("Arad");
 tree.link("Arad", "Sibiu");
 tree.link("Arad", "Timisoara");
