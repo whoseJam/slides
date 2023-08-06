@@ -11,6 +11,16 @@
 - 判定：我们会选择一个判定目标
 - 图模型：出于不同的判定目的，我们会建立不同的图模型（图模型可能是手动建立的，也可以是基于一套规则自动建立的）
 
-## 检测abc
+## 检测abc {data-background-iframe="auto_for_abc"}
 
-假设对于**信号序列**`abcabccba`，我们想要检验这个字符串里面有多少个`abc`
+假设对于**信号序列**`abaabcababa`，我们想要检验这个字符串里面有多少个`abc`
+
+## 检测aba{data-background-iframe="auto_for_aba"}
+
+假设对于**信号序列**`abaabaababa`，我们想要检验这个字符串里面有多少个`aba`
+
+# KMP
+
+## KMP
+
+假设我有一个**模式串pat**，我希望知道**pat**在某一段文本中出现了多少次，能不能借用之前检测abc的思想

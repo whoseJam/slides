@@ -3,7 +3,7 @@ import hashlib
 
 def read_database(path_to_database: str):
     record = {}
-    return record
+    # return record
     try:
         file = open(path_to_database, "r")
         line = file.readline()
